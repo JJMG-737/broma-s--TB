@@ -23,9 +23,9 @@
         }
         button:hover { background: #ff5252; }
         
-        /* Estilos para modal personalizado (mejor que alert nativo) */
+        /* Estilos para modal personalizado (visible por defecto para simular estática) */
         .modal {
-            display: none;
+            display: block; /* Cambiado a block para que sea visible en versión estática */
             position: fixed;
             z-index: 1000;
             left: 0;
@@ -63,80 +63,18 @@
 <body>
     <h1>¡Bienvenido a la Broma! 😈</h1>
     <p>¡Ja ja! Intenta cerrar esta página... pero las alertas volverán (solo 5 veces).</p>
-    <button onclick="detenerBroma()">Detener la Broma</button>
+    <button>Detener la Broma</button> <!-- onclick removido, ahora es solo visual -->
     
-    <!-- Modal personalizado para las "alertas" -->
+    <!-- Modal personalizado visible por defecto en versión estática -->
     <div id="miModal" class="modal">
         <div class="modal-content">
             <h2>¡Ja ja! 😈</h2>
             <p id="mensajeModal">¡Esta broma no para! Intenta cerrarla... pero volverá.</p>
-            <button class="close-btn" onclick="cerrarModal()">Cerrar</button>
+            <button class="close-btn">Cerrar</button> <!-- onclick removido, solo visual -->
         </div>
     </div>
-    
-    <script>
-        let bromaActiva = true;
-        let intervaloBroma;  // Para controlar el intervalo
-        let contador = 0;
-        const MAX_ALERTAS = 5;
-        
-        function mostrarBroma() {
-            if (!bromaActiva || contador >= MAX_ALERTAS) return;
-            
-            // Actualiza el mensaje con el contador
-            document.getElementById('mensajeModal').innerHTML = 
-                `¡Ja ja! ¡Esta broma no para! 😈<br>Alerta ${contador + 1} de ${MAX_ALERTAS}. Intenta cerrarla... pero volverá.`;
-            
-            // Muestra el modal
-            document.getElementById('miModal').style.display = 'block';
-            contador++;
-        }
-        
-        function cerrarModal() {
-            document.getElementById('miModal').style.display = 'none';
-            
-            // Si no se ha detenido y no hemos llegado al límite, programa la siguiente
-            if (bromaActiva && contador < MAX_ALERTAS) {
-                setTimeout(mostrarBroma, 1000);  // Pausa de 1 segundo
-            } else if (contador >= MAX_ALERTAS) {
-                mostrarMensajeFinal();
-            }
-        }
-        
-        function mostrarMensajeFinal() {
-            alert("¡Broma terminada! 😊 Puedes cerrar la página ahora.");  // Usa alert nativo solo para el final
-        }
-        
-        function detenerBroma() {
-            bromaActiva = false;
-            document.getElementById('miModal').style.display = 'none';  // Cierra modal si está abierto
-            alert("¡Broma detenida! Buena jugada. 😉");
-        }
-        
-        // Inicia la broma al cargar la página
-        window.onload = function() {
-            // Usa setInterval para un control más preciso (cada 2 segundos: 1s pausa + 1s para cerrar modal)
-            intervaloBroma = setInterval(function() {
-                if (bromaActiva && contador < MAX_ALERTAS) {
-                    mostrarBroma();
-                } else {
-                    clearInterval(intervaloBroma);
-                    if (contador >= MAX_ALERTAS) {
-                        mostrarMensajeFinal();
-                    }
-                }
-            }, 2000);  // Intervalo total: muestra cada 2 segundos
-        };
-        
-        // Cierra modal si se hace clic fuera de él
-        window.onclick = function(event) {
-            const modal = document.getElementById('miModal');
-            if (event.target == modal) {
-                cerrarModal();
-            }
-        }
-    </script>
 </body>
 </html>
+
 
    
