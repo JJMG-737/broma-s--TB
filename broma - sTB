@@ -1,0 +1,42 @@
+   <cuerpo>
+       <h1>¡Bienvenido a la Broma! 😈</h1>
+       <p>¡Ja ja! Intenta cerrar esta página... pero las alertas volverán (solo 5 veces).</p>
+       <button onclick="detenerBroma()">Detener la Broma</button>
+       
+       <Guión>
+ let bromaActiva = verdadero; Variable para detener el bucle
+           
+           function mostrarBroma() {
+ if (!bromaActiva) return; Si se detiene, no continúa
+               
+ alert("¡Ja ja! ¡Esta broma no para! 😈 \nIntenta cerrarla... pero volverá.");
+               
+ Pausa de 1 segundo antes de la siguiente (usa setTimeout para simular)
+               setTimeout(mostrarBroma, 1000);
+           }
+           
+           // Bucle finito: Llama la función 5 veces
+           let contador = 0;
+           function iniciarBroma() {
+               function repetir() {
+                   if (contador < 5 && bromaActiva) {
+                       mostrarBroma();
+                       contador++;
+                   } else {
+                       alert("¡Broma terminada! 😊 Puedes cerrar la página ahora.");
+                   }
+               }
+               repetir();
+           }
+           
+           // Función para detener (opcional, para ser ético)
+           function detenerBroma() {
+               bromaActiva = false;
+               alert("¡Broma detenida! Buena jugada. 😉");
+           }
+           
+           // Inicia al cargar la página
+           window.onload = iniciarBroma;
+       </Guión>
+   </cuerpo>
+   </html>
